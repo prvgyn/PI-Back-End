@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.ecomerce.dominio.Categoria;
 import com.ecomerce.dominio.Cliente;
 import com.ecomerce.dominio.ItemPedido;
+import com.ecomerce.dominio.Pagamento;
 import com.ecomerce.dominio.Pedido;
 import com.ecomerce.dominio.Produto;
 import com.ecomerce.dominio.enums.PedidoStatus;
@@ -114,6 +115,11 @@ public class TestConfig implements CommandLineRunner {
 		//ItemPedido ip6 = new ItemPedido(pedido4, prod9, 2, prod9.getPreco(), 10.0);
 		
 		itemPedidoRepositorio.saveAll(Arrays.asList(ip1, ip2, ip3, ip4));
+		
+		Pagamento pag1 = new Pagamento(null, Instant.parse("2019-06-20T21:53:07Z"), pedido1);
+		pedido1.setPagamento(pag1);
+		
+		pedidoRepositorio.save(pedido1);
 		
 
 	}
