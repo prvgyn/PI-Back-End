@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.ecomerce.dominio.Cliente;
 import com.ecomerce.repositorio.ClienteRepositorio;
+import com.ecomerce.servicos.exceptions.DatabaseException;
 import com.ecomerce.servicos.exceptions.ResourceNotFoundException;
 
 @Service
@@ -28,11 +31,17 @@ public class ClienteServico {
 	public Cliente inserir(Cliente obj) {
 		return repository.save(obj);
 	}
-	
+
 	public void apagar(Long id) {
+		try {
 		repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
-	
+
 	public Cliente atualizar(Long id, Cliente obj) {
 		Cliente entity = repository.getOne(id);
 		atualizarData(entity, obj);
@@ -45,6 +54,6 @@ public class ClienteServico {
 		entity.setEmail(obj.getEmail());
 		entity.setCpfOuCnpj(obj.getCpfOuCnpj());
 		entity.setTelefone(obj.getTelefone());
-		//entity.setSenha(obj.getSenha());
+		// entity.setSenha(obj.getSenha());
 	}
 }
