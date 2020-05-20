@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 //import java.sql.Date;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // import com.ecomerce.enumerador.TipoCliente;
 @Entity
 @Table(name = "tb_cliente")
@@ -31,6 +33,7 @@ public class Cliente implements Serializable{
 	// private Date dataNasc;
 	private String senha;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
