@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 import com.ecomerce.dominio.Categoria;
 import com.ecomerce.dominio.Cliente;
 import com.ecomerce.dominio.Pedido;
+import com.ecomerce.dominio.Produto;
 import com.ecomerce.dominio.enums.PedidoStatus;
 import com.ecomerce.repositorio.CategoriaRepositorio;
 import com.ecomerce.repositorio.ClienteRepositorio;
 import com.ecomerce.repositorio.PedidoRepositorio;
+import com.ecomerce.repositorio.ProdutoRepositorio;
 
 @Configuration
 @Profile("test")
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private CategoriaRepositorio categoriaRepositorio;
+	
+	@Autowired
+	private ProdutoRepositorio produtoRepositorio;
 	
 
 	@Override
@@ -50,7 +55,17 @@ public class TestConfig implements CommandLineRunner{
 		Categoria cat16 = new Categoria(null, "Bolsas");
 		Categoria cat17 = new Categoria(null, "Calças");
 		
-
+		Produto prod1 = new Produto(null, "Feito de Rap", "ThugLife", "Camisa Estampada", "M", "Branca", 5, 30.00 , "");
+		Produto prod2 = new Produto(null, "Feito de Rap", "Peace", "Camisa Estampada","P" , "Branca", 10, 35.00, "");
+		Produto prod3 = new Produto(null, "420Friends", "Snoopp", "Camisa Estampada", "G", "Verde", 20, 33.90,	"");
+		Produto prod4 = new Produto(null, "Pamonha Doce HS", "Manga Rosa", "Camisa com detalhes na manga e bolso nas costas", "M", "Branca", 40, 40.00, "");
+		
+		
+		
+		
+		categoriaRepositorio.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11, cat12, cat13, cat14, cat15, cat16, cat17));
+		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4));
+		
 		Cliente cliente1 = new Cliente(null, "Beatriz", "Lopes", "beatrizlindona@gmail.com", "12345678910", "45996531452", "123456b");
 		Cliente cliente2 = new Cliente(null, "Thales", "Lopes", "thalesmane@gmail.com", "23456789101", "45987523156", "123456t");
 		
@@ -61,7 +76,6 @@ public class TestConfig implements CommandLineRunner{
 		
 		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
 		pedidoRepositorio.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
-		categoriaRepositorio.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11, cat12, cat13, cat14, cat15, cat16, cat17));
 		
 	}
 	
