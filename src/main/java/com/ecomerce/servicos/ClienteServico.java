@@ -9,19 +9,23 @@ import org.springframework.stereotype.Service;
 import com.ecomerce.dominio.Cliente;
 import com.ecomerce.repositorio.ClienteRepositorio;
 
-
 @Service
 public class ClienteServico {
-	
+
 	@Autowired
 	private ClienteRepositorio repository;
-	
+
 	public List<Cliente> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Cliente findById(Long id) {
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.get();
+	}
+
+	public Cliente inserir(Cliente obj) {
+		return repository.save(obj);
+
 	}
 }
