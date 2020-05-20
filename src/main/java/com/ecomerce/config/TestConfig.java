@@ -107,7 +107,7 @@ public class TestConfig implements CommandLineRunner {
 		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
 		pedidoRepositorio.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 		
-		ItemPedido ip1 = new ItemPedido(pedido1, prod6, 2, prod6.getPreco(), 20.3);
+		ItemPedido ip1 = new ItemPedido(pedido1, prod6, 2, prod6.getPreco(), 10.3);
 		ItemPedido ip2 = new ItemPedido(pedido1, prod2, 1, prod2.getPreco(), 5.0);
 		ItemPedido ip3 = new ItemPedido(pedido2, prod5, 1, prod5.getPreco(), 10.0);
 		ItemPedido ip4 = new ItemPedido(pedido3, prod8, 1, prod8.getPreco(), 8.00);
