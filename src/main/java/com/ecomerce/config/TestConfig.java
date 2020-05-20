@@ -10,11 +10,13 @@ import org.springframework.context.annotation.Profile;
 
 import com.ecomerce.dominio.Categoria;
 import com.ecomerce.dominio.Cliente;
+import com.ecomerce.dominio.ItemPedido;
 import com.ecomerce.dominio.Pedido;
 import com.ecomerce.dominio.Produto;
 import com.ecomerce.dominio.enums.PedidoStatus;
 import com.ecomerce.repositorio.CategoriaRepositorio;
 import com.ecomerce.repositorio.ClienteRepositorio;
+import com.ecomerce.repositorio.ItemPedidoRepositorio;
 import com.ecomerce.repositorio.PedidoRepositorio;
 import com.ecomerce.repositorio.ProdutoRepositorio;
 
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private ProdutoRepositorio produtoRepositorio;
+	
+	@Autowired
+	private ItemPedidoRepositorio itemPedidoRepositorio;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -53,6 +58,8 @@ public class TestConfig implements CommandLineRunner {
 		Categoria cat15 = new Categoria(null, "Óculos");
 		Categoria cat16 = new Categoria(null, "Bolsas");
 		Categoria cat17 = new Categoria(null, "Calças");
+		Categoria cat18 = new Categoria(null, "SmartWatch");
+		
 
 		Produto prod1 = new Produto(null, "Feito de Rap", "ThugLife", "Camisa Estampada", "M", "Branca", 5, 30.00, "");
 		Produto prod2 = new Produto(null, "Feito de Rap", "Peace", "Camisa Estampada", "P", "Branca", 10, 35.00, "");
@@ -66,10 +73,11 @@ public class TestConfig implements CommandLineRunner {
 				"Única", "Preto", 2, 400.00, "");
 		Produto prod8 = new Produto(null, "BAW", "SholderHip", "SholderBag adaptativa para Pochete", "Único", "Preto",
 				2, 150.00, "");
+		Produto prod9 = new Produto(null, "Xiaomi", "GTR", "SmartWhatch", "Único", "Preto", 5, 900.00, "");
 
 		categoriaRepositorio.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11,
-				cat12, cat13, cat14, cat15, cat16, cat17));
-		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8));
+				cat12, cat13, cat14, cat15, cat16, cat17, cat18));
+		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9));
 
 		prod1.getCategorias().add(cat1);
 		prod2.getCategorias().add(cat1);
@@ -87,14 +95,26 @@ public class TestConfig implements CommandLineRunner {
 				"45996531452", "123456b");
 		Cliente cliente2 = new Cliente(null, "Thales", "Lopes", "thalesmane@gmail.com", "23456789101", "45987523156",
 				"123456t");
+		//Cliente cliente3 = new Cliente(null, "Pollyana", "Xavier", "pollyxavier@gmail.com", "123456788101", "62984561582", "123456p");
 
 		Pedido pedido1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.PAGO, cliente1);
 		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.ENTREGUE, cliente2);
 		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.AGUARDANDO_PAGAMENTO,
 				cliente1);
+		//Pedido pedido4 = new Pedido(null, Instant.parse("2019-02-11T04:20:05Z"), PedidoStatus.ENVIADO, cliente3);
 
 		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
 		pedidoRepositorio.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
+		
+		ItemPedido ip1 = new ItemPedido(pedido1, prod6, 2, prod6.getPreco(), 20.3);
+		ItemPedido ip2 = new ItemPedido(pedido1, prod2, 1, prod2.getPreco(), 5.0);
+		ItemPedido ip3 = new ItemPedido(pedido2, prod5, 1, prod5.getPreco(), 10.0);
+		ItemPedido ip4 = new ItemPedido(pedido3, prod8, 1, prod8.getPreco(), 8.00);
+		//ItemPedido ip5 = new ItemPedido(pedido4, prod4, 8, prod4.getPreco(), 12.00);
+		//ItemPedido ip6 = new ItemPedido(pedido4, prod9, 2, prod9.getPreco(), 10.0);
+		
+		itemPedidoRepositorio.saveAll(Arrays.asList(ip1, ip2, ip3, ip4));
+		
 
 	}
 

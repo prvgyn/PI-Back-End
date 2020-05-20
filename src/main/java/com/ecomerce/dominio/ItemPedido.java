@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.ecomerce.dominio.pk.ItemPedidoPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_pedido_produto")
@@ -14,12 +15,12 @@ public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private ItemPedidoPK id;
+	private ItemPedidoPK id = new ItemPedidoPK();
 
 	private Integer qtd;
 	private Double preco;
 	private Double desconto;
-
+	
 	public ItemPedido() {
 
 	}
@@ -33,6 +34,7 @@ public class ItemPedido implements Serializable {
 		this.desconto = desconto;
 	}
 	
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
