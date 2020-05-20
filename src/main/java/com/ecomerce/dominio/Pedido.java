@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb-pedido")
+@Table(name = "tb_pedido")
 public class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +26,7 @@ public class Pedido implements Serializable{
 	private Cliente cliente;
 
 	public Pedido() {
-		super();
+		
 	}
 
 	public Pedido(Long id, Instant moment, Cliente cliente) {

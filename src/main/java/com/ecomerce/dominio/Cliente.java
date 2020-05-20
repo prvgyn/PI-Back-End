@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 // import com.ecomerce.enumerador.TipoCliente;
 @Entity
-@Table(name = "tb-cliente")
+@Table(name = "tb_cliente")
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
