@@ -3,6 +3,8 @@ package com.ecomerce.servicos;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,7 +36,7 @@ public class ClienteServico {
 
 	public void apagar(Long id) {
 		try {
-		repository.deleteById(id);
+			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
 		} catch (DataIntegrityViolationException e) {
@@ -43,9 +45,14 @@ public class ClienteServico {
 	}
 
 	public Cliente atualizar(Long id, Cliente obj) {
+		try {
 		Cliente entity = repository.getOne(id);
 		atualizarData(entity, obj);
 		return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			e.printStackTrace();
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void atualizarData(Cliente entity, Cliente obj) {
