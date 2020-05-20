@@ -20,20 +20,19 @@ import com.ecomerce.repositorio.ProdutoRepositorio;
 
 @Configuration
 @Profile("test")
-public class TestConfig implements CommandLineRunner{
-	
+public class TestConfig implements CommandLineRunner {
+
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
-	
+
 	@Autowired
 	private PedidoRepositorio pedidoRepositorio;
-	
+
 	@Autowired
 	private CategoriaRepositorio categoriaRepositorio;
-	
+
 	@Autowired
 	private ProdutoRepositorio produtoRepositorio;
-	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -54,30 +53,49 @@ public class TestConfig implements CommandLineRunner{
 		Categoria cat15 = new Categoria(null, "Óculos");
 		Categoria cat16 = new Categoria(null, "Bolsas");
 		Categoria cat17 = new Categoria(null, "Calças");
-		
-		Produto prod1 = new Produto(null, "Feito de Rap", "ThugLife", "Camisa Estampada", "M", "Branca", 5, 30.00 , "");
-		Produto prod2 = new Produto(null, "Feito de Rap", "Peace", "Camisa Estampada","P" , "Branca", 10, 35.00, "");
-		Produto prod3 = new Produto(null, "420Friends", "Snoopp", "Camisa Estampada", "G", "Verde", 20, 33.90,	"");
-		Produto prod4 = new Produto(null, "Pamonha Doce HS", "Manga Rosa", "Camisa com detalhes na manga e bolso nas costas", "M", "Branca", 40, 40.00, "");
-		
-		
-		
-		
-		categoriaRepositorio.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11, cat12, cat13, cat14, cat15, cat16, cat17));
-		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4));
-		
-		Cliente cliente1 = new Cliente(null, "Beatriz", "Lopes", "beatrizlindona@gmail.com", "12345678910", "45996531452", "123456b");
-		Cliente cliente2 = new Cliente(null, "Thales", "Lopes", "thalesmane@gmail.com", "23456789101", "45987523156", "123456t");
-		
+
+		Produto prod1 = new Produto(null, "Feito de Rap", "ThugLife", "Camisa Estampada", "M", "Branca", 5, 30.00, "");
+		Produto prod2 = new Produto(null, "Feito de Rap", "Peace", "Camisa Estampada", "P", "Branca", 10, 35.00, "");
+		Produto prod3 = new Produto(null, "420Friends", "Snoopp", "Camisa Estampada", "G", "Verde", 20, 33.90, "");
+		Produto prod4 = new Produto(null, "Pamonha Doce HS", "Manga Rosa",
+				"Camisa com detalhes na manga e bolso nas costas", "M", "Branca", 40, 40.00, "");
+		Produto prod5 = new Produto(null, "Diesel", "Square O'Clock", "Relógio quadrado, pulseira de metal",
+				"Analógico", "Preto", 1, 800.00, "");
+		Produto prod6 = new Produto(null, "Oakley", "HatBack", "Boné estampado", "M", "Preto", 5, 90.00, "");
+		Produto prod7 = new Produto(null, "RayBan", "Aviator", "Óculos com armação de metal e lente polarizada",
+				"Única", "Preto", 2, 400.00, "");
+		Produto prod8 = new Produto(null, "BAW", "SholderHip", "SholderBag adaptativa para Pochete", "Único", "Preto",
+				2, 150.00, "");
+
+		categoriaRepositorio.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11,
+				cat12, cat13, cat14, cat15, cat16, cat17));
+		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8));
+
+		prod1.getCategorias().add(cat1);
+		prod2.getCategorias().add(cat1);
+		prod3.getCategorias().add(cat1);
+		prod4.getCategorias().add(cat1);
+		prod5.getCategorias().add(cat14);
+		prod6.getCategorias().add(cat6);
+		prod7.getCategorias().add(cat15);
+		prod8.getCategorias().add(cat8);
+		prod8.getCategorias().add(cat9);
+
+		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8));
+
+		Cliente cliente1 = new Cliente(null, "Beatriz", "Lopes", "beatrizlindona@gmail.com", "12345678910",
+				"45996531452", "123456b");
+		Cliente cliente2 = new Cliente(null, "Thales", "Lopes", "thalesmane@gmail.com", "23456789101", "45987523156",
+				"123456t");
+
 		Pedido pedido1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.PAGO, cliente1);
 		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.ENTREGUE, cliente2);
-		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.AGUARDANDO_PAGAMENTO, cliente1);
-		
-		
+		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.AGUARDANDO_PAGAMENTO,
+				cliente1);
+
 		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
 		pedidoRepositorio.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
-		
+
 	}
-	
-	
+
 }
