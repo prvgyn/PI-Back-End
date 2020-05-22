@@ -2,8 +2,8 @@ package com.ecomerce.dominio.enums;
 
 public enum ClienteTipo {
 	
-	FÍSICA(1),
-	JURÍDICA(2);
+	FISICA(1),
+	JURIDICA(2);
 	
 	private int tipo;
 	

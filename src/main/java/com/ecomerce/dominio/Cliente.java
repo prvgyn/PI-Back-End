@@ -30,7 +30,6 @@ public class Cliente implements Serializable{
 	private String sobrenome;
 	private String email;
 	private String cpfOuCnpj;
-	//private ClienteTipo tipo;
 	private String telefone;
 	private Date dataNasc;
 	private String senha;
@@ -50,12 +49,9 @@ public class Cliente implements Serializable{
 
 		
 	//Getters and Setters
-	public Long getId() {
-		return id;
-	}
 	
 	public Cliente(Long id, String nome, String sobrenome, String email, String cpfOuCnpj, ClienteTipo clienteTipo,
-			String telefone, Date dataNasc, String senha, List<Pedido> pedidos) {
+			String telefone, Date dataNasc, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -66,7 +62,10 @@ public class Cliente implements Serializable{
 		this.telefone = telefone;
 		this.dataNasc = dataNasc;
 		this.senha = senha;
-		this.pedidos = pedidos;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 
 	public void setId(Long id) {
