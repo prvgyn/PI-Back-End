@@ -98,9 +98,9 @@ public class TestConfig implements CommandLineRunner {
 				"123456t");
 		//Cliente cliente3 = new Cliente(null, "Pollyana", "Xavier", "pollyxavier@gmail.com", "123456788101", "62984561582", "123456p");
 
-		Pedido pedido1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.PAGO, cliente1);
+		Pedido pedido1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.EMBALANDO, cliente1);
 		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.ENTREGUE, cliente2);
-		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.AGUARDANDO_PAGAMENTO,
+		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.PERDIDO,
 				cliente1);
 		//Pedido pedido4 = new Pedido(null, Instant.parse("2019-02-11T04:20:05Z"), PedidoStatus.ENVIADO, cliente3);
 

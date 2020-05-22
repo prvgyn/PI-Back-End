@@ -102,6 +102,7 @@ public class Pedido implements Serializable {
 		return itens;
 	}
 	
+	// Cálculo de SubTotal
 	public Double getTotal() {
 		double soma = 0.0;
 		for(ItemPedido x : itens) {

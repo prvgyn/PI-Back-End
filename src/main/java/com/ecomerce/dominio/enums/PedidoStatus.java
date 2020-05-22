@@ -2,14 +2,11 @@ package com.ecomerce.dominio.enums;
 
 public enum PedidoStatus {
 	
-	AGUARDANDO_PAGAMENTO(1), 
-	PAGO(2), 
-	EMBALANDO(3),
-	ENVIADO(4),
-	ENTREGUE(5),
-	CANCELADO(6),
-	DEVOLVIDO(7),
-	PERDIDO(8);
+	EMBALANDO(1),
+	ENVIADO(2),
+	ENTREGUE(3),
+	DEVOLVIDO(4),
+	PERDIDO(5);
 	
 	private int code;
 	

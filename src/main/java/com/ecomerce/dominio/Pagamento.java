@@ -7,29 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.ecomerce.dominio.enums.PagamentoStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_pagamento")
-public class Pagamento implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Instant moment;
-	
+
 	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Pedido pedido;
 
+	public Integer pagamentoStatus;
+
 	public Pagamento() {
-	
 	}
 
 	public Pagamento(Long id, Instant moment, Pedido pedido) {
@@ -63,6 +68,16 @@ public class Pagamento implements Serializable{
 		this.pedido = pedido;
 	}
 
+	public PagamentoStatus getPagamentoStatus() {
+		return PagamentoStatus.valueOf(pagamentoStatus);
+	}
+
+	public void setPagamentoStatus(PagamentoStatus pagamentoStatus) {
+		if (pagamentoStatus != null) {
+			this.pagamentoStatus = pagamentoStatus.getCode();
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,9 +102,5 @@ public class Pagamento implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
+
 }

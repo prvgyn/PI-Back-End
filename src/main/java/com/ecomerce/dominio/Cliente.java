@@ -2,6 +2,7 @@ package com.ecomerce.dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 //import java.sql.Date;
 import javax.persistence.Table;
 
+import com.ecomerce.dominio.enums.ClienteTipo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // import com.ecomerce.enumerador.TipoCliente;
@@ -28,10 +30,12 @@ public class Cliente implements Serializable{
 	private String sobrenome;
 	private String email;
 	private String cpfOuCnpj;
-	// private TipoCliente tipo;
+	//private ClienteTipo tipo;
 	private String telefone;
-	// private Date dataNasc;
+	private Date dataNasc;
 	private String senha;
+	
+	private Integer clienteTipo;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
@@ -43,23 +47,28 @@ public class Cliente implements Serializable{
 	}
 	
 	//Construtor com todos os atributos
-	public Cliente(Long id, String nome, String sobrenome, String email, String cpfOuCnpj, String telefone,
-			String senha) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.sobrenome = sobrenome;
-		this.email = email;
-		this.cpfOuCnpj = cpfOuCnpj;
-		this.telefone = telefone;
-		this.senha = senha;	
-		}
+
 		
 	//Getters and Setters
 	public Long getId() {
 		return id;
 	}
 	
+	public Cliente(Long id, String nome, String sobrenome, String email, String cpfOuCnpj, ClienteTipo clienteTipo,
+			String telefone, Date dataNasc, String senha, List<Pedido> pedidos) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.email = email;
+		this.cpfOuCnpj = cpfOuCnpj;
+		setClienteTipo(clienteTipo);
+		this.telefone = telefone;
+		this.dataNasc = dataNasc;
+		this.senha = senha;
+		this.pedidos = pedidos;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -106,8 +115,26 @@ public class Cliente implements Serializable{
 	
 	public String getSenha() {
 		return senha;
-	}
+	}	
 	
+	public ClienteTipo getTipo() {
+		return ClienteTipo.valueOf(clienteTipo);
+	}
+
+	public void setClienteTipo(ClienteTipo clienteTipo) {
+		if (clienteTipo != null) {
+			this.clienteTipo = clienteTipo.getCode();
+		}
+	}
+
+	public Date getDataNasc() {
+		return dataNasc;
+	}
+
+	public void setDataNasc(Date dataNasc) {
+		this.dataNasc = dataNasc;
+	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
