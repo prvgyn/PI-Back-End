@@ -37,7 +37,7 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private ProdutoRepositorio produtoRepositorio;
-	
+
 	@Autowired
 	private ItemPedidoRepositorio itemPedidoRepositorio;
 
@@ -61,7 +61,6 @@ public class TestConfig implements CommandLineRunner {
 		Categoria cat16 = new Categoria(null, "Bolsas");
 		Categoria cat17 = new Categoria(null, "Calças");
 		Categoria cat18 = new Categoria(null, "SmartWatch");
-		
 
 		Produto prod1 = new Produto(null, "Feito de Rap", "ThugLife", "Camisa Estampada", "M", "Branca", 5, 30.00, "");
 		Produto prod2 = new Produto(null, "Feito de Rap", "Peace", "Camisa Estampada", "P", "Branca", 10, 35.00, "");
@@ -93,34 +92,35 @@ public class TestConfig implements CommandLineRunner {
 
 		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8));
 
-		//Cliente cliente3 = new Cliente(id, nome, sobrenome, email, cpfOuCnpj, clienteTipo, telefone, dataNasc, senha);
-		Cliente cliente1 = new Cliente(null, "Beatriz", "Lopes", "beatrizlopes@gmail.com", "12345678910", ClienteTipo.FISICA, "459874512151", null, "123456b");
-		Cliente cliente2 = new Cliente(null, "Thales", "Lopes", "thalesmane@gmail.com", "23456789101", ClienteTipo.JURIDICA, "45987523156", null, "123456t");
-		
-				
+		// Cliente cliente3 = new Cliente(id, nome, sobrenome, email, cpfOuCnpj,
+		// clienteTipo, telefone, dataNasc, senha);
+		Cliente cliente1 = new Cliente(null, "Beatriz", "Lopes", "beatrizlopes@gmail.com", "12345678910",
+				ClienteTipo.FISICA, "459874512151", null, "123456b");
+		Cliente cliente2 = new Cliente(null, "Thales", "Lopes", "thalesmane@gmail.com", "23456789101",
+				ClienteTipo.JURIDICA, "45987523156", null, "123456t");
+
+		// Pedido pedido = new Pedido(id, moment, pedidoStatus, cliente)
 		Pedido pedido1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.EMBALANDO, cliente1);
 		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.ENTREGUE, cliente2);
-		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.PERDIDO,
-				cliente1);
-		//Pedido pedido4 = new Pedido(null, Instant.parse("2019-02-11T04:20:05Z"), PedidoStatus.ENVIADO, cliente3);
+		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.PERDIDO, cliente1);
 
 		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
 		pedidoRepositorio.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
-		
+
+		// ItemPedido ip = new ItemPedido(pedido, produto, qtd, preco, desconto)
 		ItemPedido ip1 = new ItemPedido(pedido1, prod6, 2, prod6.getPreco(), 10.3);
 		ItemPedido ip2 = new ItemPedido(pedido1, prod2, 1, prod2.getPreco(), 5.0);
 		ItemPedido ip3 = new ItemPedido(pedido2, prod5, 1, prod5.getPreco(), 10.0);
 		ItemPedido ip4 = new ItemPedido(pedido3, prod8, 1, prod8.getPreco(), 8.00);
-		//ItemPedido ip5 = new ItemPedido(pedido4, prod4, 8, prod4.getPreco(), 12.00);
-		//ItemPedido ip6 = new ItemPedido(pedido4, prod9, 2, prod9.getPreco(), 10.0);
-		
+
 		itemPedidoRepositorio.saveAll(Arrays.asList(ip1, ip2, ip3, ip4));
-		
-		Pagamento pag1 = new Pagamento(null, Instant.parse("2019-06-20T21:53:07Z"), pedido1);
+
+		// Pagamento pag1 = new PagamentoComBoleto(null, PagamentoStatus.PAGO, null,
+		// null);
+		Pagamento pag1 = new Pagamento(null, null, pedido1);
 		pedido1.setPagamento(pag1);
-		
+
 		pedidoRepositorio.save(pedido1);
-		
 
 	}
 

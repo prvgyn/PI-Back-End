@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 //import java.sql.Date;
 import javax.persistence.Table;
 
@@ -19,10 +20,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 // import com.ecomerce.enumerador.TipoCliente;
 @Entity
 @Table(name = "tb_cliente")
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	//Atributos
+
+	// Atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -33,23 +34,22 @@ public class Cliente implements Serializable{
 	private String telefone;
 	private Date dataNasc;
 	private String senha;
-	
+
 	private Integer clienteTipo;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
-	
-	
-	//Construtor Vazio
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "cliente")
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
+
+	// Construtor Vazio
 	public Cliente() {
 	}
-	
-	//Construtor com todos os atributos
 
-		
-	//Getters and Setters
-	
+	// Construtor com todos os atributos
 	public Cliente(Long id, String nome, String sobrenome, String email, String cpfOuCnpj, ClienteTipo clienteTipo,
 			String telefone, Date dataNasc, String senha) {
 		super();
@@ -63,7 +63,8 @@ public class Cliente implements Serializable{
 		this.dataNasc = dataNasc;
 		this.senha = senha;
 	}
-	
+
+	// Getters and Setters
 	public Long getId() {
 		return id;
 	}
@@ -71,51 +72,51 @@ public class Cliente implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getSobrenome() {
 		return sobrenome;
 	}
-	
+
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getCpfOuCnpj() {
 		return cpfOuCnpj;
 	}
-	
+
 	public void setCpfOuCnpj(String cpfOuCnpj) {
 		this.cpfOuCnpj = cpfOuCnpj;
 	}
-	
+
 	public String getTelefone() {
 		return telefone;
 	}
-	
+
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+
 	public String getSenha() {
 		return senha;
-	}	
-	
+	}
+
 	public ClienteTipo getTipo() {
 		return ClienteTipo.valueOf(clienteTipo);
 	}
@@ -137,12 +138,19 @@ public class Cliente implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
-	
-	
+
+	public List<Endereco> getEndereco() {
+		return enderecos;
+	}
+
+	public void setEndereco(Endereco enderecos) {
+		this.endereco = enderecos;
+	}
+
 	// HashCode
 	@Override
 	public int hashCode() {
@@ -169,6 +177,5 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-
 
 }

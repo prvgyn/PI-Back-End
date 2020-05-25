@@ -1,63 +1,62 @@
 package com.ecomerce.dominio;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "tb_pagamento")
-public class Pagamento implements Serializable {
+@Table(name = "tb_cidade")
+public class Cidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Instant moment;
+	private Integer id;
+	private String nome;
 
-	@OneToOne
-	@MapsId
-	private Pedido pedido;
+	@JsonIgnore
+	@ManyToOne(mappedBy = "cidade")
+	private Estado estado;
 
-	public Pagamento() {
+	public Cidade() {
 
 	}
 
-	public Pagamento(Long id, Instant moment, Pedido pedido) {
+	public Cidade(Integer id, String nome, Estado estado) {
 		super();
 		this.id = id;
-		this.moment = moment;
-		this.pedido = pedido;
+		this.nome = nome;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Instant getMoment() {
-		return moment;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setMoment(Instant moment) {
-		this.moment = moment;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override
@@ -76,7 +75,7 @@ public class Pagamento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pagamento other = (Pagamento) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

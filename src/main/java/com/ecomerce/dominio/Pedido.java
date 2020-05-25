@@ -37,22 +37,27 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+	@ManyToOne
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
+
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 
-	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)	
+	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private Pagamento pagamento;
-	
+
 	public Pedido() {
 
 	}
 
-	public Pedido(Long id, Instant moment, PedidoStatus pedidoStatus, Cliente cliente) {
+	public Pedido(Long id, Instant moment, PedidoStatus pedidoStatus, Cliente cliente, Endereco endereco) {
 		super();
 		this.id = id;
 		this.moment = moment;
 		setPedidoStatus(pedidoStatus);
 		this.cliente = cliente;
+		this.endereco = endereco;
 	}
 
 	public Long getId() {
@@ -89,7 +94,14 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 	}
 
-	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
@@ -101,11 +113,11 @@ public class Pedido implements Serializable {
 	public Set<ItemPedido> getItens() {
 		return itens;
 	}
-	
+
 	// Cálculo de SubTotal
 	public Double getTotal() {
 		double soma = 0.0;
-		for(ItemPedido x : itens) {
+		for (ItemPedido x : itens) {
 			soma = soma + x.getSubTotal();
 		}
 		return soma;
