@@ -1,27 +1,30 @@
 package com.ecomerce.dominio.enums;
 
 public enum PagamentoStatus {
-	
-	PENDENTE(1),
-	PAGO(2),
-	CANCELADO(3);
-	
-	private int sit;
-	
-	private PagamentoStatus(int sit) {
-		this.sit = sit;
+
+	PENDENTE(1), PAGO(2), CANCELADO(3);
+
+	private Integer code;
+
+	private PagamentoStatus(int code) {
+		this.code = code;
 	}
-	
+
 	public int getCode() {
-		return sit;
+		return code;
 	}
-	
-	public static PagamentoStatus valueOf(int sit) {
-		for(PagamentoStatus value : PagamentoStatus.values()) {
-			if(value.getCode() == sit) {
-				return value;
+
+	public static PagamentoStatus toEnum(Integer code) {
+		if (code == null) {
+			return null;
+		}
+		for (PagamentoStatus x : PagamentoStatus.values()) {
+			if (code.equals(x.getCode())) {
+				return x;
 			}
 		}
-		throw new IllegalArgumentException("Código de Status de Pagamento Inválido!");
+
+		throw new IllegalArgumentException("Código de Status de Pagamento inválido " + code);
+
 	}
 }

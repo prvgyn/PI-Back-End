@@ -3,21 +3,23 @@ package com.ecomerce.dominio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-//import java.sql.Date;
 import javax.persistence.Table;
 
 import com.ecomerce.dominio.enums.ClienteTipo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-// import com.ecomerce.enumerador.TipoCliente;
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente implements Serializable {
@@ -26,50 +28,51 @@ public class Cliente implements Serializable {
 	// Atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String nome;
 	private String sobrenome;
 	private String email;
 	private String cpfOuCnpj;
-	private String telefone;
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataNasc;
 	private String senha;
-
-	private Integer clienteTipo;
+	private Integer tipo;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "cliente")
-	private List<Endereco> enderecos = new ArrayList<Endereco>();
+	@OneToMany(mappedBy = "cliente")
+	private List<Endereco> enderecos = new ArrayList<>();
+
+	@ElementCollection
+	@CollectionTable(name = "telefone")
+	private Set<String> telefones = new HashSet<>();
 
 	// Construtor Vazio
 	public Cliente() {
 	}
 
 	// Construtor com todos os atributos
-	public Cliente(Long id, String nome, String sobrenome, String email, String cpfOuCnpj, ClienteTipo clienteTipo,
-			String telefone, Date dataNasc, String senha) {
+	public Cliente(Integer id, String nome, String sobrenome, String email, String cpfOuCnpj, ClienteTipo tipo,
+			Date dataNasc, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		setClienteTipo(clienteTipo);
-		this.telefone = telefone;
+		this.tipo = tipo.getCode();
 		this.dataNasc = dataNasc;
 		this.senha = senha;
 	}
 
 	// Getters and Setters
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -105,25 +108,17 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
 
-	public ClienteTipo getTipo() {
-		return ClienteTipo.valueOf(clienteTipo);
+	public ClienteTipo getClienteTipo() {
+		return ClienteTipo.toEnum(tipo);
 	}
 
-	public void setClienteTipo(ClienteTipo clienteTipo) {
-		if (clienteTipo != null) {
-			this.clienteTipo = clienteTipo.getCode();
+	public void setTipo(ClienteTipo tipo) {
+		if (tipo != null) {
+			this.tipo = tipo.getCode();
 		}
 	}
 
@@ -143,13 +138,22 @@ public class Cliente implements Serializable {
 		return pedidos;
 	}
 
-	public List<Endereco> getEndereco() {
+	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEndereco(Endereco enderecos) {
-		this.endereco = enderecos;
+	public void setEndereco(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
+	
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+	
 
 	// HashCode
 	@Override

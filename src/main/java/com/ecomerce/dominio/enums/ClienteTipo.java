@@ -5,22 +5,27 @@ public enum ClienteTipo {
 	FISICA(1),
 	JURIDICA(2);
 	
-	private int tipo;
+	private Integer code;
 	
-	private ClienteTipo(int tipo) {
-		this.tipo = tipo;
+	private ClienteTipo(int code) {
+		this.code = code;
 	}
 	
 	public int getCode() {
-		return tipo;
+		return code;
 	}
 	
-	public static ClienteTipo valueOf(int tipo) {
-		for(ClienteTipo value : ClienteTipo.values()) {
-			if(value.getCode() == tipo) {
-				return value;
+	public static ClienteTipo toEnum(Integer code) {
+		if (code == null) {
+			return null;
+		}
+		for (ClienteTipo x : ClienteTipo.values()) {
+			if (code.equals(x.getCode())) {
+				return x;
 			}
 		}
-		throw new IllegalArgumentException("Código de Tipo Cliente Inválido!");
+
+		throw new IllegalArgumentException("Código de Cliente inválido " + code);
+
 	}
 }

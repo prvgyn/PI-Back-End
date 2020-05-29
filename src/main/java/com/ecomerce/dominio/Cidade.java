@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,7 +23,8 @@ public class Cidade implements Serializable {
 	private String nome;
 
 	@JsonIgnore
-	@ManyToOne(mappedBy = "cidade")
+	@ManyToOne
+	@JoinColumn(name="estado_id")
 	private Estado estado;
 
 	public Cidade() {
@@ -33,6 +35,7 @@ public class Cidade implements Serializable {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.estado = estado;
 	}
 
 	public Integer getId() {

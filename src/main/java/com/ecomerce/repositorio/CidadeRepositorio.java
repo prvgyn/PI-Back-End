@@ -3,9 +3,9 @@ package com.ecomerce.repositorio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ecomerce.dominio.Produto;
+import com.ecomerce.dominio.Cidade;
 
 @Repository
-public interface ProdutoRepositorio extends JpaRepository<Produto, Integer> {
-
+public interface CidadeRepositorio extends JpaRepository<Cidade, Integer>{	
+	
 }

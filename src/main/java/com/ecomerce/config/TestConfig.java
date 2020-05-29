@@ -15,6 +15,7 @@ import com.ecomerce.dominio.Pagamento;
 import com.ecomerce.dominio.Pedido;
 import com.ecomerce.dominio.Produto;
 import com.ecomerce.dominio.enums.ClienteTipo;
+import com.ecomerce.dominio.enums.PagamentoStatus;
 import com.ecomerce.dominio.enums.PedidoStatus;
 import com.ecomerce.repositorio.CategoriaRepositorio;
 import com.ecomerce.repositorio.ClienteRepositorio;
@@ -92,19 +93,18 @@ public class TestConfig implements CommandLineRunner {
 
 		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8));
 
-		// Cliente cliente3 = new Cliente(id, nome, sobrenome, email, cpfOuCnpj,
-		// clienteTipo, telefone, dataNasc, senha);
-		Cliente cliente1 = new Cliente(null, "Beatriz", "Lopes", "beatrizlopes@gmail.com", "12345678910",
-				ClienteTipo.FISICA, "459874512151", null, "123456b");
-		Cliente cliente2 = new Cliente(null, "Thales", "Lopes", "thalesmane@gmail.com", "23456789101",
-				ClienteTipo.JURIDICA, "45987523156", null, "123456t");
+		//Cliente clientex = new Cliente(id, nome, sobrenome, email, cpfOuCnpj, tipo, dataNasc, senha)
+		Cliente cliente1 = new Cliente(null, "Beatriz", "Bueno", "beatrizbueno@gmail.com", "184651381", ClienteTipo.JURIDICA, null, "123456b");
+		Cliente cliente2 = new Cliente(null, "Thales", "Braz", "thalesbraz@gmail.com", "184198451", ClienteTipo.FISICA, null, "123456t");
+		Cliente cliente3 = new Cliente(null, "Luiza", "Costa", "luizacosta@gmail.com", "4887964814", ClienteTipo.FISICA, null, "123456l");
 
-		// Pedido pedido = new Pedido(id, moment, pedidoStatus, cliente)
-		Pedido pedido1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.EMBALANDO, cliente1);
-		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.ENTREGUE, cliente2);
-		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.PERDIDO, cliente1);
+		//Pedido pedido = new Pedido(id, moment, estado, cliente, enderecoDeEntrega)
+		Pedido pedido1 = new Pedido(null, Instant.parse("2019-07-22T03:42:10Z"), PedidoStatus.ENTREGUE, cliente1, null);
+		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.ENTREGUE, cliente2, null);
+		Pedido pedido3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.PERDIDO, cliente1, null);
+		//Pedido pedido4 = new Pedido(id, moment, pedidoStatus, cliente, endereco)
 
-		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2));
+		clienteRepositorio.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
 		pedidoRepositorio.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 
 		// ItemPedido ip = new ItemPedido(pedido, produto, qtd, preco, desconto)
@@ -117,7 +117,7 @@ public class TestConfig implements CommandLineRunner {
 
 		// Pagamento pag1 = new PagamentoComBoleto(null, PagamentoStatus.PAGO, null,
 		// null);
-		Pagamento pag1 = new Pagamento(null, null, pedido1);
+		Pagamento pag1 = new Pagamento(null, Instant.parse("2019-07-21T03:42:10Z"), pedido1, PagamentoStatus.PAGO);
 		pedido1.setPagamento(pag1);
 
 		pedidoRepositorio.save(pedido1);

@@ -26,20 +26,21 @@ public class Pedido implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
+	private Integer estado;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 
-	private Integer pedidoStatus;
+	//private Integer pedidoStatus;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-	@ManyToOne
-	@JoinColumn(name = "endereco_id")
-	private Endereco endereco;
+	@OneToOne
+	@JoinColumn(name = "endereco_de_entrega_id")
+	private Endereco enderecoDeEntrega;
 
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
@@ -51,20 +52,21 @@ public class Pedido implements Serializable {
 
 	}
 
-	public Pedido(Long id, Instant moment, PedidoStatus pedidoStatus, Cliente cliente, Endereco endereco) {
+	public Pedido(Integer id, Instant moment, PedidoStatus estado, Cliente cliente, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.moment = moment;
-		setPedidoStatus(pedidoStatus);
+		this.estado = estado.getCode();
+		//setPedidoStatus(pedidoStatus);
 		this.cliente = cliente;
-		this.endereco = endereco;
+		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -77,12 +79,12 @@ public class Pedido implements Serializable {
 	}
 
 	public PedidoStatus getPedidoStatus() {
-		return PedidoStatus.valueOf(pedidoStatus);
+		return PedidoStatus.toEnum(estado);
 	}
 
-	public void setPedidoStatus(PedidoStatus pedidoStatus) {
-		if (pedidoStatus != null) {
-			this.pedidoStatus = pedidoStatus.getCode();
+	public void setPedidoStatus(PedidoStatus estado) {
+		if (estado != null) {
+			this.estado = estado.getCode();
 		}
 	}
 
@@ -95,11 +97,11 @@ public class Pedido implements Serializable {
 	}
 
 	public Endereco getEndereco() {
-		return endereco;
+		return enderecoDeEntrega;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEndereco(Endereco enderecoDeEntrega) {
+		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
 	public Pagamento getPagamento() {
@@ -112,6 +114,10 @@ public class Pedido implements Serializable {
 
 	public Set<ItemPedido> getItens() {
 		return itens;
+	}
+	
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	// Cálculo de SubTotal

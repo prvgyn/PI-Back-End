@@ -8,22 +8,27 @@ public enum PedidoStatus {
 	DEVOLVIDO(4),
 	PERDIDO(5);
 	
-	private int code;
+	private Integer code;
 	
-	private PedidoStatus(int code) {
+	private PedidoStatus(Integer code) {
 		this.code = code;
 	}
 	
-	public int getCode() {
+	public Integer getCode() {
 		return code;
 	}
 	
-	public static PedidoStatus valueOf(int code) {
-		for(PedidoStatus value : PedidoStatus.values()) {
-			if(value.getCode() == code) {
-				return value;
+	public static PedidoStatus toEnum(Integer code) {
+		if (code == null) {
+			return null;
+		}
+		for (PedidoStatus x : PedidoStatus.values()) {
+			if (code.equals(x.getCode())) {
+				return x;
 			}
 		}
-		throw new IllegalArgumentException("Código de Status de Pedido Inválido!");
+
+		throw new IllegalArgumentException("Código de Status de Pagamento inválido " + code);
+
 	}
 }
