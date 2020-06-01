@@ -20,7 +20,7 @@ public class CategoriaServico {
 		return repository.findAll();
 	}
 	
-	public Categoria findById(Long id) {
+	public Categoria findById(Integer id) {
 		Optional<Categoria> obj = repository.findById(id);
 		return obj.get();
 	}

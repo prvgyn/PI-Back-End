@@ -25,7 +25,7 @@ public class ClienteServico {
 		return repository.findAll();
 	}
 
-	public Cliente findById(Long id) {
+	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
@@ -34,7 +34,7 @@ public class ClienteServico {
 		return repository.save(obj);
 	}
 
-	public void apagar(Long id) {
+	public void apagar(Integer id) {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
@@ -44,7 +44,7 @@ public class ClienteServico {
 		}
 	}
 
-	public Cliente atualizar(Long id, Cliente obj) {
+	public Cliente atualizar(Integer id, Cliente obj) {
 		try {
 		Cliente entity = repository.getOne(id);
 		atualizarData(entity, obj);
@@ -60,7 +60,6 @@ public class ClienteServico {
 		entity.setSobrenome(obj.getSobrenome());
 		entity.setEmail(obj.getEmail());
 		entity.setCpfOuCnpj(obj.getCpfOuCnpj());
-		entity.setTelefone(obj.getTelefone());
-		// entity.setSenha(obj.getSenha());
+		//entity.setSenha(obj.getSenha());
 	}
 }

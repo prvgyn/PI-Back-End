@@ -20,7 +20,7 @@ public class PedidoServico {
 		return repository.findAll();
 	}
 	
-	public Pedido findById(Long id) {
+	public Pedido findById(Integer id) {
 		Optional<Pedido> obj = repository.findById(id);
 		return obj.get();
 	}

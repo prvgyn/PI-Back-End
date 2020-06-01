@@ -2,6 +2,7 @@ package com.ecomerce.dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +34,7 @@ public class Cliente implements Serializable {
 	private String sobrenome;
 	private String email;
 	private String cpfOuCnpj;
-	@JsonFormat(pattern="dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataNasc;
 	private String senha;
 	private Integer tipo;
@@ -108,6 +109,7 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
+	// SEGURANÇA
 	public String getSenha() {
 		return senha;
 	}
@@ -145,7 +147,7 @@ public class Cliente implements Serializable {
 	public void setEndereco(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
-	
+
 	public Set<String> getTelefones() {
 		return telefones;
 	}
@@ -153,7 +155,6 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
 
 	// HashCode
 	@Override

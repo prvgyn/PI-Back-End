@@ -14,6 +14,7 @@ import com.ecomerce.dominio.ItemPedido;
 import com.ecomerce.dominio.Pagamento;
 import com.ecomerce.dominio.Pedido;
 import com.ecomerce.dominio.Produto;
+import com.ecomerce.dominio.Usuario;
 import com.ecomerce.dominio.enums.ClienteTipo;
 import com.ecomerce.dominio.enums.PagamentoStatus;
 import com.ecomerce.dominio.enums.PedidoStatus;
@@ -22,6 +23,7 @@ import com.ecomerce.repositorio.ClienteRepositorio;
 import com.ecomerce.repositorio.ItemPedidoRepositorio;
 import com.ecomerce.repositorio.PedidoRepositorio;
 import com.ecomerce.repositorio.ProdutoRepositorio;
+import com.ecomerce.repositorio.UsuarioRepositorio;
 
 @Configuration
 @Profile("test")
@@ -41,6 +43,10 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private ItemPedidoRepositorio itemPedidoRepositorio;
+	
+	@Autowired
+	private UsuarioRepositorio usuarioRepositorio;
+	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -91,13 +97,17 @@ public class TestConfig implements CommandLineRunner {
 		prod8.getCategorias().add(cat8);
 		prod8.getCategorias().add(cat9);
 
+		Usuario user1 = new Usuario("tarcisiolopes", "Tarcisio Lopes", "$2a$10$LoizvaZ2qxL.klNGs5aH.uqKkRolRZus7W3jAYB.aVIwwyNjziTSe");
+		usuarioRepositorio.saveAll(Arrays.asList(user1));
+
 		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8));
 
-		//Cliente clientex = new Cliente(id, nome, sobrenome, email, cpfOuCnpj, tipo, dataNasc, senha)
-		Cliente cliente1 = new Cliente(null, "Beatriz", "Bueno", "beatrizbueno@gmail.com", "184651381", ClienteTipo.JURIDICA, null, "123456b");
+		//Cliente clientex = new Cliente(id, nome, sobrenome, email, cpfOuCnpj, tipo, dataNasc, senha, login, ativo)
+		Cliente cliente1 = new Cliente(null, "Beatriz", "Bueno", "beatrizb@gmail.com", "123456789", ClienteTipo.FISICA, null, "123456b");
 		Cliente cliente2 = new Cliente(null, "Thales", "Braz", "thalesbraz@gmail.com", "184198451", ClienteTipo.FISICA, null, "123456t");
 		Cliente cliente3 = new Cliente(null, "Luiza", "Costa", "luizacosta@gmail.com", "4887964814", ClienteTipo.FISICA, null, "123456l");
-
+		
+				
 		//Pedido pedido = new Pedido(id, moment, estado, cliente, enderecoDeEntrega)
 		Pedido pedido1 = new Pedido(null, Instant.parse("2019-07-22T03:42:10Z"), PedidoStatus.ENTREGUE, cliente1, null);
 		Pedido pedido2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.ENTREGUE, cliente2, null);

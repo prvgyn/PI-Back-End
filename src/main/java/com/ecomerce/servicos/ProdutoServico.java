@@ -19,7 +19,7 @@ public class ProdutoServico {
 		return repository.findAll();
 	}
 
-	public Produto findById(Long id) {
+	public Produto findById(Integer id) {
 		Optional<Produto> obj = repository.findById(id);
 		return obj.get();
 	}
