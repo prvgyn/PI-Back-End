@@ -14,7 +14,6 @@ import com.ecomerce.dominio.ItemPedido;
 import com.ecomerce.dominio.Pagamento;
 import com.ecomerce.dominio.Pedido;
 import com.ecomerce.dominio.Produto;
-import com.ecomerce.dominio.Usuario;
 import com.ecomerce.dominio.enums.ClienteTipo;
 import com.ecomerce.dominio.enums.PagamentoStatus;
 import com.ecomerce.dominio.enums.PedidoStatus;
@@ -23,7 +22,6 @@ import com.ecomerce.repositorio.ClienteRepositorio;
 import com.ecomerce.repositorio.ItemPedidoRepositorio;
 import com.ecomerce.repositorio.PedidoRepositorio;
 import com.ecomerce.repositorio.ProdutoRepositorio;
-import com.ecomerce.repositorio.UsuarioRepositorio;
 
 @Configuration
 @Profile("test")
@@ -44,10 +42,6 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private ItemPedidoRepositorio itemPedidoRepositorio;
 	
-	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	
-
 	@Override
 	public void run(String... args) throws Exception {
 		Categoria cat1 = new Categoria(null, "Camisas");
@@ -97,8 +91,8 @@ public class TestConfig implements CommandLineRunner {
 		prod8.getCategorias().add(cat8);
 		prod8.getCategorias().add(cat9);
 
-		Usuario user1 = new Usuario("tarcisiolopes", "Tarcisio Lopes", "$2a$10$LoizvaZ2qxL.klNGs5aH.uqKkRolRZus7W3jAYB.aVIwwyNjziTSe");
-		usuarioRepositorio.saveAll(Arrays.asList(user1));
+		//Usuario user1 = new Usuario("tarcisiolopes", "Tarcisio Lopes", "$2a$10$LoizvaZ2qxL.klNGs5aH.uqKkRolRZus7W3jAYB.aVIwwyNjziTSe");
+		//usuarioRepositorio.saveAll(Arrays.asList(user1));
 
 		produtoRepositorio.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8));
 

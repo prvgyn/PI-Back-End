@@ -1,35 +1,35 @@
 package com.ecomerce.dominio;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "tb_usuario")
-public class Usuario implements UserDetails {
+@Table(name="tb_usuario")
+public class Usuario implements UserDetails{
 
 	@Id
 	private String login;
-
+	
 	private String nomeCompleto;
-
+	
 	private String senha;
-
-	public Usuario() {
-		super();
-	}
-
-	public Usuario(String login, String nomeCompleto, String senha) {
-		super();
-		this.login = login;
-		this.nomeCompleto = nomeCompleto;
-		this.senha = senha;
-	}
+	
+	@ManyToMany
+	@JoinTable(name="usuarios_roles", joinColumns = @JoinColumn (
+			name = "usuario_id", referencedColumnName = "login"),
+			inverseJoinColumns = @JoinColumn(
+			name = "role_id", referencedColumnName = "nomeRole"))
+	private List<Role> roles;
 
 	public String getLogin() {
 		return login;
@@ -53,6 +53,16 @@ public class Usuario implements UserDetails {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
@@ -96,5 +106,6 @@ public class Usuario implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
+	
+	
 }
